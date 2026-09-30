@@ -2,11 +2,20 @@
 import manager.SmartHomeManager;
 
 
+
+
+import creator.*;
+import model.SmartLight;
+
+
+
 public class Main {
     public static void main(String[] args) {
-        SmartHomeManager manager = new SmartHomeManager();
+        SmartLightInstaller homeKitInstaller = new HomekitLightInstaller();
+        SmartLight livingroom = homeKitInstaller.installAndConfigure("Living room",50);
 
-        manager.setUpEnvironment("HomeKit");
-        manager.runNightRoutine();
+        SmartLightInstaller tuyaInstaller = new TuyaLightInstaller();
+        SmartLight bedroom = tuyaInstaller.installAndConfigure("Bedroom", 90);
     }
 }
+
