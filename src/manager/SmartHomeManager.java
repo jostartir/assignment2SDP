@@ -9,6 +9,9 @@ public class SmartHomeManager {
     private Thermostat thermostat;
 
     public void setupEcosystem(SmartHomeFactory factory){
+        if (factory == null) {
+            throw new IllegalArgumentException("Factory cannot be null");
+        }
         this.light = factory.createLight();
         this.lock = factory.createLock();
         this.thermostat = factory.createThermostat();

@@ -27,6 +27,21 @@ public class FactorySelector {
 
 
         };
+
+
+    }
+
+    public static SmartHomeFactory getFactoryByName(String platform) {
+        if (platform == null) {
+            throw new IllegalArgumentException("Platform name cannot be null");
+        }
+        return switch (platform.toLowerCase().trim()) {
+            case "1", "homekit" -> new HomekitFactory();
+            case "2", "tuya" -> new TuyaFactory();
+            case "3", "xiaomi" -> new XiaomiFactory();
+            case "4", "aqara" -> new AqaraFactory();
+            default -> throw new IllegalArgumentException("Unknown platform: " + platform);
+        };
     }
 
 }
