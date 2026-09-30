@@ -161,3 +161,23 @@ factory/FactorySelector
 
 
 **Impact on Existing Code:** No changes were required in SmartHomeManager, the product interfaces, or the existing factories. The night routine, away mode, and emergency evacuation operate through abstractions and therefore support the new family without modification.
+
+
+## Part H -- UML
+
+![uml.png](uml.png)
+
+## Part I -- Automated Tests
+I implemented 16 automated tests using JUnit 5 in SmartHomeEcosystemTest.
+
+Test Coverage:
+- **Product Creation:** Checks that HomeKit, Tuya, Xiaomi, and the new Aqara factory create the correct concrete lights, locks, and thermostats.
+- **Family Consistency:** Verifies that HomeKit, Tuya, and Aqara factories return products belonging to their respective families.
+- **Runtime Selection:** Checks that selecting "tuya" or "aqara" returns the appropriate factory.
+- **Business Operations:** Checks that the night routine, emergency evacuation, and away eco mode execute without exceptions after initialization.
+- **Negative Scenarios:** Expects IllegalArgumentException for an unknown platform name and a null factory.
+- **Client Abstraction:** Passes all four factories through the SmartHomeFactory interface and executes the same manager operations.
+- **Factory Method:** Checks that HomekitLightInstaller returns a non-null HomekitLight through the installation workflow.
+
+
+The current business-operation tests verify execution without errors. Stronger behavioral verification would also check device actions and values, such as locking the door, setting brightness, and adjusting temperature.
