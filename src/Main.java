@@ -1,4 +1,5 @@
 
+import factory.FactorySelector;
 import factory.HomekitFactory;
 import factory.SmartHomeFactory;
 import factory.TuyaFactory;
@@ -15,17 +16,13 @@ import model.Thermostat;
 
 public class Main {
     public static void main(String[] args) {
+        SmartHomeFactory factory = FactorySelector.selectFromUserChoice();
+
         SmartHomeManager manager = new SmartHomeManager();
-
-        SmartHomeFactory homeKitFactory = new HomekitFactory();
-        manager.setupEcosystem(homeKitFactory);
-        manager.runNightRoutine();
-
-        System.out.println(" :DDD ");
-
-        SmartHomeFactory tuyaFactory = new TuyaFactory();
-        manager.setupEcosystem(tuyaFactory);
-        manager.runNightRoutine();
+        manager.setupEcosystem(factory);
+        manager.executeNightRoutine();
+        manager.activateAwayEcoMode();
+        manager.triggerEmergencyEvacuation();
 
 
     }
