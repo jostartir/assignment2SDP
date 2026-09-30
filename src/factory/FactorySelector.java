@@ -11,6 +11,7 @@ public class FactorySelector {
         System.out.println("1 - HomeKit");
         System.out.println("2 - Tuya");
         System.out.println("3 - Xiaomi");
+        System.out.println("4 - Aqara");
 
         String input = scanner.nextLine().trim();
 
@@ -18,6 +19,7 @@ public class FactorySelector {
             case "1", "homekit" -> new HomekitFactory();
             case "2","tuya" -> new TuyaFactory();
             case "3","xiaomi" -> new XiaomiFactory();
+            case "4","aqara" -> new AqaraFactory();
             default -> {
                 System.out.println("Unknown platform.Defaulting to HomeKit.");
                 yield new HomekitFactory();
