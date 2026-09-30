@@ -19,9 +19,10 @@ public class FactorySelector {
             case "2","tuya" -> new TuyaFactory();
             case "3","xiaomi" -> new XiaomiFactory();
             default -> {
-                System.out.println("Unknown platform. Defaulting to HomeKit.");
+                System.out.println("Unknown platform.Defaulting to HomeKit.");
                 yield new HomekitFactory();
             }
+
 
         };
     }
