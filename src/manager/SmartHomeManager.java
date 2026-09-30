@@ -1,9 +1,6 @@
 package manager;
 
-import devices.homekit.*;
-import devices.tuya.*;
-import devices.xiaomi.*;
-
+import factory.SmartHomeFactory;
 import model.*;
 
 public class SmartHomeManager {
@@ -11,41 +8,13 @@ public class SmartHomeManager {
     private SecurityLock lock;
     private Thermostat thermostat;
 
-    public void setUpEnvironment(String platform){
-        if (platform.equalsIgnoreCase("Homekit")){
-            this.light = new HomekitLight();
-            this.lock = new HomekitLock();
-            this.thermostat = new HomekitThermostat();
-        }else if (platform.equalsIgnoreCase("Tuya")){
-            this.light = new TuyaLight();
-            this.lock = new TuyaLock();
-            this.thermostat = new TuyaThermostat();
-        }else if (platform.equalsIgnoreCase("Xiaomi")){
-            this.light = new XiaomiLight();
-            this.lock = new XiaomiLock();
-            this.thermostat = new XiaomiThermostat();
-        }else{
-            throw new IllegalArgumentException("Unsupported platform:" + platform);
-        }
-    }
+    public void setupEcosystem(SmartHomeFactory factory){
+        this.light = factory.createLight();
+        this.lock = factory.createLock();
+        this.thermostat = factory.createThermostat();
 
-    public SmartLight createExtraLight(String platform){
-        if (platform.equalsIgnoreCase("Homekit")){
-            return new HomekitLight();
-        }
-        if (platform.equalsIgnoreCase("Tuya")){
-            return new TuyaLight();
-        }
-        if (platform.equalsIgnoreCase("Xiaomi")){
-            return new XiaomiLight();
-        }
-        throw new IllegalArgumentException("Unknown platform: " + platform);
-    }
+        System.out.println("Successfully set up the ecosystem using " + factory.getClass().getSimpleName());
 
-    public void unsafeCustomSetup(SmartLight l,SecurityLock s,Thermostat t){
-        this.light = l;
-        this.lock = s;
-        this.thermostat = t;
     }
 
     public void runNightRoutine(){

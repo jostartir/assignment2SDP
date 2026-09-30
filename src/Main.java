@@ -1,6 +1,7 @@
 
 import factory.HomekitFactory;
 import factory.SmartHomeFactory;
+import factory.TuyaFactory;
 import manager.SmartHomeManager;
 
 
@@ -14,15 +15,19 @@ import model.Thermostat;
 
 public class Main {
     public static void main(String[] args) {
-        SmartHomeFactory factory = new HomekitFactory();
+        SmartHomeManager manager = new SmartHomeManager();
 
-        SmartLight light = factory.createLight();
-        Thermostat thermostat = factory.createThermostat();
-        SecurityLock lock = factory.createLock();
+        SmartHomeFactory homeKitFactory = new HomekitFactory();
+        manager.setupEcosystem(homeKitFactory);
+        manager.runNightRoutine();
 
-        light.turnOn();
-        thermostat.setTemperature(28.5);
-        lock.lock();
+        System.out.println(" :DDD ");
+
+        SmartHomeFactory tuyaFactory = new TuyaFactory();
+        manager.setupEcosystem(tuyaFactory);
+        manager.runNightRoutine();
+
+
     }
 }
 
